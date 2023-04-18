@@ -6,7 +6,7 @@
 # 使い方
 - まずPyTorch環境を用意し，`main.bat` 内の実行コマンドをその環境の `python.exe` に置き換えます．
   - GPU/CPU どちらでも動きます．
-- ShogiGUIや将棋所から使う場合，`main.bat` をエンジンとして登録します．
+- [ShogiGUI](http://shogigui.siganus.com/)や[将棋所](http://shogidokoro.starfree.jp/)から使う場合，`main.bat` をエンジンとして登録します．
   - GUIの操作方法等はダウンロード元を参照してください．
 - あとは対局タブとかから遊んでください．
 
