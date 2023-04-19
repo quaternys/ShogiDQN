@@ -18,7 +18,7 @@ class QNetwork(torch.nn.Module):
         return x
 
 class Agent:
-    def __init__(self, wfile="Gen1M.pth"):
+    def __init__(self, wfile="./model.pth"):
         self.Q = torch.load(wfile, device)
 
     def act(self, S=None, X=None):
@@ -58,5 +58,4 @@ class Agent:
         # Boltzmann方策
         p = (Q / T).softmax(0)
         a = int(torch.multinomial(p, 1))
-        print(Q.sort())
         return float(Q[a]), a
