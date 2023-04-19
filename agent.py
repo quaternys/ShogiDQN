@@ -40,7 +40,7 @@ class Agent:
         depth1 = depth - 1
         if depth1 == 0:
             return float(max(Q))
-        for a in Q.argsort(descending=True)[:5]:    # 上位5手を探索
+        for a in Q.argsort(descending=True)[:3]:    # 前向き枝刈り
             alpha = max(alpha, -self.negamax(*env.Env(S[a]).Snew(), depth1, -beta, -alpha))
             if alpha >= beta:
                 return alpha
