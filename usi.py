@@ -57,10 +57,6 @@ def sfen_to_move(board, turn, sfen) -> tuple:
 
 DEPTH_LIMIT = 3
 TEMPERATURE = 0.01
-# 初期化
-from agent import Agent, QNetwork
-agent = Agent()
-env = sfen_to_state("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL", "-", "b")
 
 while True:
     cmd = input().split()
@@ -73,6 +69,10 @@ while True:
         print("usiok")
     elif cmd[0] == "isready":
         print("readyok")
+        # 初期化
+        from agent import Agent, QNetwork
+        agent = Agent()
+        env = sfen_to_state("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL", "-", "b")
     elif cmd[0] == "setoption": # 設定
         if cmd[2] == "DepthLimit":
             DEPTH_LIMIT = int(cmd[-1])
@@ -87,11 +87,12 @@ while True:
             env.step(sfen_to_move(env.board, env.side, move))
     elif cmd[0] == "go":
         Q, a = agent.act_boltzmann_negamax(*env.Snew(), TEMPERATURE, DEPTH_LIMIT)
-        score = int((1420/np.pi) * np.tan(Q*np.pi/2))   # https://t.co/0XLsQvFjLg に基づくQ値∈(-1, 1)→評価値換算
-        print("info score cp", score)
         if Q == -1:
+            print("info score cp", -5000)
             print("bestmove resign")
         else:
+            score = int((1420/np.pi) * np.tan(Q*np.pi/2))   # https://t.co/0XLsQvFjLg に基づくQ値∈(-1, 1)→評価値換算
+            print("info score cp", score)
             print("bestmove", move_to_sfen(env.board, env.side, *env.legalmoves[a]))
     elif cmd[0] == "debug":
         print(env)

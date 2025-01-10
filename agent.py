@@ -37,6 +37,7 @@ class Agent:
     def act_boltzmann_negamax(self, S=None, X=None, T=0.0, depth=1):
         depth1 = depth - 1
         if depth1:
+            # TODO: 最善手を指す場合，これまでに調べた評価値で枝刈りができる．
             Q = -torch.Tensor([self.negamax(*env.Env(s).Snew(), depth1) for s in S])
         else:
             Q = -self.Q(X).flatten()
